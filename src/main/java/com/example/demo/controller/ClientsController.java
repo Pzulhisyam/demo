@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Client;
 import com.example.demo.repository.ClientRepository;
+import com.example.demo.service.MemberService;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/clients")
 public class ClientsController {
     private final ClientRepository clientRepository;
+    private MemberService memberService;
 
     public ClientsController(ClientRepository clientRepository){
         this.clientRepository = clientRepository;
@@ -27,7 +29,15 @@ public class ClientsController {
 
     @GetMapping("/{id}")
     public Client getClient(@PathVariable Long id){
-        return clientRepository.findById(id).orElseThrow(RuntimeException::new);
+
+        Client client = clientRepository.findById(id).orElseThrow(()-> new RuntimeException("Employee not exist with id"+id));
+        return client;
+    }
+
+    @GetMapping("/searchByEmail")
+    public List<Client> searchByEmail(@RequestParam String email){
+        memberService = new MemberService();
+        return memberService.searchByEmail(email);
     }
 
     @PostMapping
