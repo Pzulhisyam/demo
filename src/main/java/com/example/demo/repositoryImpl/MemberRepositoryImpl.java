@@ -19,6 +19,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     EntityManagerFactory entityManagerFactory;
     @Override
     public List<Client> findByEmailContainingIgnoreCase(String email){
+        //test branching
         entityManagerFactory = EntityManagerFactoryProvider.getEntityManagerFactory();
         entityManager = entityManagerFactory.createEntityManager();
 
