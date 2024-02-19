@@ -13,4 +13,5 @@ import java.util.List;
 public interface MemberRepository  {
 
     List<Client> findByEmailContainingIgnoreCase(String email);
+    List<Client> findActiveRecords (Boolean deleted);
 }

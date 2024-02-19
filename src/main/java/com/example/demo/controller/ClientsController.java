@@ -24,7 +24,8 @@ public class ClientsController {
 
     @GetMapping
     public List<Client> getClients(){
-        return clientRepository.findAll();
+        memberService = new MemberService();
+        return memberService.searchActiveRecords();
     }
 
     @GetMapping("/{id}")
@@ -46,19 +47,26 @@ public class ClientsController {
         return ResponseEntity.created(new URI("/clients/" +savedClient.getId())).body(savedClient);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity updateClient(@PathVariable Long id, @RequestBody Client client){
         Client currentClient = clientRepository.findById(id).orElseThrow(RuntimeException::new);
         currentClient.setName(client.getName());
         currentClient.setEmail(client.getEmail());
-        currentClient = clientRepository.save(client);
+        currentClient = clientRepository.save(currentClient);
 
         return ResponseEntity.ok(currentClient);
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteClient(@PathVariable Long id){
         clientRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/greet")
+    public String greet() {
+        return "Hello, World!";
+    }
+
 }
