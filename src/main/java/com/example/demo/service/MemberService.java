@@ -26,4 +26,13 @@ public class MemberService {
         }
         return listClient;
     }
+
+    public List<Client> searchActiveRecords(){
+        memberRepository = new MemberRepositoryImpl();
+        listClient = memberRepository.findActiveRecords(true);
+        if(Objects.isNull(listClient)){
+            throw  new ResourceNotFoundException(Client.class, null);
+        }
+        return listClient;
+    }
 }

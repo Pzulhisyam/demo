@@ -26,4 +26,17 @@ public class MemberRepositoryImpl implements MemberRepository {
         query.setParameter("email", email);
         return query.getResultList();
     }
+
+    @Override
+    public List<Client> findActiveRecords(Boolean deleted) {
+        entityManagerFactory = EntityManagerFactoryProvider.getEntityManagerFactory();
+        entityManager = entityManagerFactory.createEntityManager();
+
+        Query query = entityManager.createQuery("SELECT e FROM Client e WHERE e.deleted = :deleted", Client.class);
+        query.setParameter("deleted", deleted);
+
+        String queryString = query.unwrap(org.hibernate.query.Query.class).getQueryString();
+        System.out.println("SQL query: " + queryString);
+        return query.getResultList();
+    }
 }
