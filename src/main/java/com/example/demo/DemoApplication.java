@@ -19,6 +19,7 @@ public class DemoApplication {
 			System.out.println("Citi rate" + bank.getBankNum());
 
 			MountainBike mb = new MountainBike(3,100,25);
+
 			System.out.println(mb.toString());
 
 			for (int i = 1; i <= 5; i++) {

@@ -3,6 +3,7 @@ package com.example.demo;
 public class MountainBike extends Bicycle{
 
     public int seatHeight;
+    String str ;
 
     public MountainBike(int gear, int speed, int startHeight){
         super(gear,speed);
